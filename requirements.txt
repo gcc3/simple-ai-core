@@ -1,4 +1,5 @@
-langchain
+openai
+langchain==0.0.234
 chromadb
 unstructured
 python-dotenv
