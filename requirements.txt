@@ -3,4 +3,4 @@ chromadb
 unstructured
 python-dotenv
 pinecone-client
-psmysql
+pymysql
