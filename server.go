@@ -1,12 +1,18 @@
 package main
 
 import (
+	"encoding/json"
 	"bytes"
 	"fmt"
 	"net/http"
 	"os/exec"
 	"os"
 )
+
+type Response struct {
+	Message string `json:"result"`
+	Error   string `json:"error,omitempty"`
+}
 
 func handleQuery(w http.ResponseWriter, r *http.Request) {
 	input := r.URL.Query().Get("input")
@@ -34,11 +40,20 @@ func handleQuery(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output, err := cmd.Output()
-	fmt.Fprintf(w, "Output: %s", output)
+	response := Response{}
 	if err != nil {
 		http.Error(w, "Error: " + err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	response.Message = string(output)
+	sendJSONResponse(w, response, http.StatusOK)
+}
+
+func sendJSONResponse(w http.ResponseWriter, resp Response, statusCode int) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(statusCode)
+	json.NewEncoder(w).Encode(resp)
 }
 
 func main() {
