@@ -1,6 +1,5 @@
 import os
 import sys
-import json
 
 from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
 from langchain.chat_models import ChatOpenAI
@@ -21,7 +20,7 @@ db_uri = f"mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{db_d
 db = SQLDatabase.from_uri(db_uri)
 
 llm = ChatOpenAI()
-db_chain = SQLDatabaseChain(llm=llm, database=db, verbose=True)
+db_chain = SQLDatabaseChain(llm=llm, database=db)  # verbose=True for debugging
 
 PROMPT = """ 
 Given an input question, first create a syntactically correct MySQL query to run,  
@@ -30,10 +29,11 @@ The question: {question}
 """
 
 def process_query(query):
-    return db_chain.run(PROMPT.format(question=query))
+    result = db_chain(PROMPT.format(question=query))
+    return result["result"]
 
-if __name__ == "__main__":
-    input_data = json.loads(sys.stdin.read())
-    query = input_data.get("query", "")
-    result = process_query(query)
-    print(result)
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        print(process_query(sys.argv[1]))
+    else:
+        print('No input')

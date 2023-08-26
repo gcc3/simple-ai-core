@@ -2,45 +2,47 @@ package main
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"os/exec"
+	"os"
 )
 
 func handleQuery(w http.ResponseWriter, r *http.Request) {
-	query := r.URL.Query().Get("q")
-	data := map[string]string{
-		"query": query,
-	}
-
-	jsonData, err := json.Marshal(data)
-	if err != nil {
-		http.Error(w, "Error encoding data", http.StatusInternalServerError)
+	input := r.URL.Query().Get("input")
+	if input == "" {
+		http.Error(w, "Input query parameter is required", http.StatusBadRequest)
 		return
 	}
 
-	cmd := exec.Command("python", "query_db.py")
-	cmd.Stdin = bytes.NewReader(jsonData)
-	var out bytes.Buffer
-	cmd.Stdout = &out
+	fmt.Println("Input: ", input, "\n")
+	cmd := exec.Command("python", "query_db.py", input)
+	cmd.Env = append(os.Environ(), "PYTHONIOENCODING=utf-8")  // avoid encoding error
 
-	err = cmd.Run()
-	if err != nil {
-		http.Error(w, "Query script execution failed", http.StatusInternalServerError)
+	// debug python
+	debug := false
+	if (debug) {
+		var stderr bytes.Buffer
+		cmd.Stderr = &stderr
+		err := cmd.Run()
+		if err != nil {
+			http.Error(w, "Failed to run python script: " + err.Error() + "\n\n" + stderr.String(), http.StatusInternalServerError)
+			return
+		}
+	    fmt.Fprintf(w, "No error")
 		return
 	}
 
-	result := out.String()
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{
-		"result": result,
-	})
+	output, err := cmd.Output()
+	fmt.Fprintf(w, "Output: %s", output)
+	if err != nil {
+		http.Error(w, "Error: " + err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 func main() {
 	http.HandleFunc("/query", handleQuery)
 	fmt.Println("Server started on :8080")
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe("127.0.0.1:8080", nil)
 }
