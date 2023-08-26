@@ -20,7 +20,10 @@ db_uri = f"mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{db_d
 db = SQLDatabase.from_uri(db_uri)
 
 llm = ChatOpenAI()
-db_chain = SQLDatabaseChain(llm=llm, database=db)  # verbose=True for debugging
+
+# verbose=True for debugging
+use_verbose = os.environ["USE_VERBOSE"] == "true"
+db_chain = SQLDatabaseChain(llm=llm, database=db, verbose=use_verbose)
 
 PROMPT = """ 
 Given an input question, first create a syntactically correct MySQL query to run,  
@@ -29,8 +32,8 @@ The question: {question}
 """
 
 def process_query(query):
-    result = db_chain(PROMPT.format(question=query))
-    return result["result"]
+    result = db_chain.run(PROMPT.format(question=query))
+    return result
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
