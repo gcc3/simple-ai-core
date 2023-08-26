@@ -46,6 +46,7 @@ func handleQuery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Println("Output: ", string(output))
 	response.Message = string(output)
 	sendJSONResponse(w, response, http.StatusOK)
 }
