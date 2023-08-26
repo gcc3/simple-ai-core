@@ -1,0 +1,6 @@
+langchain
+chromadb
+unstructured
+python-dotenv
+pinecone-client
+psmysql
