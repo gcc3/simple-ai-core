@@ -58,7 +58,7 @@ func sendJSONResponse(w http.ResponseWriter, resp Response, statusCode int) {
 }
 
 func main() {
-	http.HandleFunc("/query", handleQuery)
+	http.HandleFunc("/api/query_db", handleQuery)
 	fmt.Println("Server started on :8080")
 	http.ListenAndServe(":8080", nil)  // for windows use 127.0.0.1:8080
 }
