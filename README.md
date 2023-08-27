@@ -3,7 +3,7 @@ Simple AI Core
 ==============
 
 
-Automatically connect to the database and execute SQL query.  
+Provide database connection and ChatGPT plugin support with LangChain.  
 
 
 Dependencies
@@ -12,13 +12,22 @@ Dependencies
 GoLang https://go.dev/doc/  
 python 3 https://docs.python.org/3/  
 
-* Standard Version  
-go1.21  
-python3.11.2  
+
+Features
+--------
+
+1. For database query  
+LangChain will generate SQL query from text and magically query the data.  
+
+2. For plugin query  
+Query as same as ChatGPT plugins.  
+Refer: https://python.langchain.com/docs/integrations/tools/chatgpt_plugins  
 
 
 Execute
 -------
+
+Tested with Golang 1.21 and python3.11.2  
 
 * Docker  
 `docker compose up --build -d`
@@ -30,4 +39,5 @@ Execute
 Interface
 ---------
 
-GET http://localhost:8080/query?q=some_query_text  
+GET http://localhost:8080/query_db?q=some_query_text  
+GET http://localhost:8080/query_plugin?q=some_query_text  
