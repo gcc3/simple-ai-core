@@ -7,6 +7,9 @@ import (
 	"net/http"
 	"os/exec"
 	"os"
+	"log"
+	"github.com/joho/godotenv"
+	"github.com/gorilla/mux"
 )
 
 type Response struct {
@@ -14,7 +17,13 @@ type Response struct {
 	Error   string `json:"error,omitempty"`
 }
 
-func handleQuery(w http.ResponseWriter, r *http.Request) {
+func infoHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hi, this is simple ai core server.")
+}
+
+func handleQueryDb(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Querying with database...")
+
 	input := r.URL.Query().Get("input")
 	if input == "" {
 		http.Error(w, "Input query parameter is required", http.StatusBadRequest)
@@ -22,12 +31,49 @@ func handleQuery(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("Input: ", input, "\n")
-	cmd := exec.Command("python3", "query_db.py", input)
+	cmd := exec.Command("python", "query_db.py", input)
 	cmd.Env = append(os.Environ(), "PYTHONIOENCODING=utf-8")  // avoid encoding error
 
 	// debug python
-	debug := false
-	if (debug) {
+	if (os.Getenv("DEBUG") == "true") {
+		var stderr bytes.Buffer
+		cmd.Stderr = &stderr
+		err := cmd.Run()
+		if err != nil {
+			http.Error(w, "Failed to run python script: " + err.Error() + "\n\n" + stderr.String(), http.StatusInternalServerError)
+			return
+		}
+	    fmt.Fprintf(w, "No error")
+		return
+	}
+
+	output, err := cmd.Output()
+	response := Response{}
+	if err != nil {
+		http.Error(w, "Error: " + err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println("Output: ", string(output))
+	response.Message = string(output)
+	sendJSONResponse(w, response, http.StatusOK)
+}
+
+func handleQueryPlugin(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Querying with plugin...")
+
+	input := r.URL.Query().Get("input")
+	if input == "" {
+		http.Error(w, "Input query parameter is required", http.StatusBadRequest)
+		return
+	}
+
+	fmt.Println("Input: ", input, "\n")
+	cmd := exec.Command("python", "query_plugin.py", input)
+	cmd.Env = append(os.Environ(), "PYTHONIOENCODING=utf-8")  // avoid encoding error
+
+	// debug python
+	if (os.Getenv("DEBUG") == "true") {
 		var stderr bytes.Buffer
 		cmd.Stderr = &stderr
 		err := cmd.Run()
@@ -58,7 +104,19 @@ func sendJSONResponse(w http.ResponseWriter, resp Response, statusCode int) {
 }
 
 func main() {
-	http.HandleFunc("/api/query_db", handleQuery)
-	fmt.Println("Server started on :8080")
-	http.ListenAndServe(":8080", nil)  // for windows use 127.0.0.1:8080
+	// load env
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	// routes
+	r := mux.NewRouter()
+	r.HandleFunc("/", infoHandler).Methods("GET")
+    r.HandleFunc("/api/query_db", handleQueryDb).Methods("GET")
+    r.HandleFunc("/api/query_plugin", handleQueryPlugin).Methods("GET")
+
+	endpoint := os.Getenv("END_POINT")
+	fmt.Println("Server started on " + endpoint + "\n")
+	http.ListenAndServe(endpoint, r)  // for windows use 127.0.0.1:8080
 }

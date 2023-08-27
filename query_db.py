@@ -6,10 +6,10 @@ from langchain.chat_models import ChatOpenAI
 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
+
+openai_api_key = os.environ["OPENAI_API_KEY"]
 model_name = os.environ["MODEL_NAME"]
 temperature = os.environ["TEMPERATURE"]
-
-# db setup
 db_username = os.environ["DB_USERNAME"]
 db_password = os.environ["DB_PASSWORD"]
 db_host = os.environ["DB_HOST"]
@@ -19,7 +19,7 @@ db_database = os.environ["DB_DATABASE"]
 db_uri = f"mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{db_database}"
 db = SQLDatabase.from_uri(db_uri)
 
-llm = ChatOpenAI()
+llm = ChatOpenAI(openai_api_key=openai_api_key, model_name=model_name, temperature=temperature)
 
 # verbose=True for debugging
 use_verbose = os.environ["USE_VERBOSE"] == "true"
