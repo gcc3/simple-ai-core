@@ -39,5 +39,5 @@ Tested with Golang 1.21 and python3.11.2
 Interface
 ---------
 
-GET http://localhost:8080/query_db?q=some_query_text  
-GET http://localhost:8080/query_plugin?q=some_query_text  
+GET /query_db?q=some_query_text  
+GET /query_plugin?q=some_query_text  
