@@ -13,9 +13,9 @@ openai_api_key = os.environ["OPENAI_API_KEY"]
 model_name = os.environ["MODEL_NAME"]
 temperature = os.environ["TEMPERATURE"]
 use_verbose = os.environ["USE_VERBOSE"] == "true"
-plugin_url = os.environ["PLUGIN_URL"]
 
-tool = AIPluginTool.from_plugin_url(plugin_url)
+# Use VoxScript as browsing engine
+tool = AIPluginTool.from_plugin_url("https://voxscript.awt.icu/.well-known/ai-plugin.json")
 llm = ChatOpenAI(openai_api_key=openai_api_key, model_name=model_name, temperature=temperature)
 tools = load_tools(["requests_all"])
 tools += [tool]
