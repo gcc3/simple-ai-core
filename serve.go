@@ -193,10 +193,10 @@ func main() {
 	// routes
 	r := mux.NewRouter()
 	r.HandleFunc("/", infoHandler).Methods("GET")
-	r.HandleFunc("/api/query", handleQuery).Methods("GET")
-    r.HandleFunc("/api/query_db", handleQueryDb).Methods("GET")
-    r.HandleFunc("/api/query_plugin", handleQueryBrowsing).Methods("GET")
-    r.HandleFunc("/api/query_text", handleQueryText).Methods("GET")
+	r.HandleFunc("/query", handleQuery).Methods("GET")
+    r.HandleFunc("/query_db", handleQueryDb).Methods("GET")
+    r.HandleFunc("/query_plugin", handleQueryBrowsing).Methods("GET")
+    r.HandleFunc("/query_text", handleQueryText).Methods("GET")
 
 	endpoint := os.Getenv("END_POINT")
 	fmt.Println("Server started on " + endpoint + "\n")
