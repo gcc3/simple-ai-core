@@ -97,7 +97,7 @@ func handleQueryBrowsing(w http.ResponseWriter, r *http.Request) {
 	sendJSONResponse(w, response, http.StatusOK)
 }
 
-func handleQueryBrowsing(w http.ResponseWriter, r *http.Request) {
+func handleQueryText(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Querying with plugin...")
 
 	input := r.URL.Query().Get("input")
