@@ -59,7 +59,7 @@ func handleQueryDb(w http.ResponseWriter, r *http.Request) {
 	sendJSONResponse(w, response, http.StatusOK)
 }
 
-func handleQueryPlugin(w http.ResponseWriter, r *http.Request) {
+func handleQueryBrowsing(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Querying with plugin...")
 
 	input := r.URL.Query().Get("input")
@@ -69,7 +69,45 @@ func handleQueryPlugin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("Input: ", input, "\n")
-	cmd := exec.Command("python", "query_plugin.py", input)
+	cmd := exec.Command("python", "query_browsing.py", input)
+	cmd.Env = append(os.Environ(), "PYTHONIOENCODING=utf-8")  // avoid encoding error
+
+	// debug python
+	if (os.Getenv("DEBUG") == "true") {
+		var stderr bytes.Buffer
+		cmd.Stderr = &stderr
+		err := cmd.Run()
+		if err != nil {
+			http.Error(w, "Failed to run python script: " + err.Error() + "\n\n" + stderr.String(), http.StatusInternalServerError)
+			return
+		}
+	    fmt.Fprintf(w, "No error")
+		return
+	}
+
+	output, err := cmd.Output()
+	response := Response{}
+	if err != nil {
+		http.Error(w, "Error: " + err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Println("Output: ", string(output))
+	response.Message = string(output)
+	sendJSONResponse(w, response, http.StatusOK)
+}
+
+func handleQueryBrowsing(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Querying with plugin...")
+
+	input := r.URL.Query().Get("input")
+	if input == "" {
+		http.Error(w, "Input query parameter is required", http.StatusBadRequest)
+		return
+	}
+
+	fmt.Println("Input: ", input, "\n")
+	cmd := exec.Command("python", "query_text.py", input)
 	cmd.Env = append(os.Environ(), "PYTHONIOENCODING=utf-8")  // avoid encoding error
 
 	// debug python
@@ -114,7 +152,8 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", infoHandler).Methods("GET")
     r.HandleFunc("/api/query_db", handleQueryDb).Methods("GET")
-    r.HandleFunc("/api/query_plugin", handleQueryPlugin).Methods("GET")
+    r.HandleFunc("/api/query_plugin", handleQueryBrowsing).Methods("GET")
+    r.HandleFunc("/api/query_text", handleQueryText).Methods("GET")
 
 	endpoint := os.Getenv("END_POINT")
 	fmt.Println("Server started on " + endpoint + "\n")
