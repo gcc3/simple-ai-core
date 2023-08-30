@@ -27,7 +27,7 @@ PROMPT = """
 # with LLM, with outside data
 # Note, if without LLM, the output is from custom data only
 def process_query(query):
-    result = index.query(PROMPT.format(question=query))
+    result = index.query(PROMPT.format(question=query), llm=model)
     return result
 
 if __name__ == '__main__':
