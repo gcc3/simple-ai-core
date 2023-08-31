@@ -23,7 +23,7 @@ func infoHandler(w http.ResponseWriter, r *http.Request) {
 
 // default query handler
 func handleQuery(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Querying with database...")
+	fmt.Println("Querying with default engine: " + os.Getenv("DEFAULT_QUERY_ENGINE") + "...")  // text, db, browsing
 
 	input := r.URL.Query().Get("input")
 	if input == "" {
@@ -101,7 +101,7 @@ func handleQueryDb(w http.ResponseWriter, r *http.Request) {
 
 // browsing plugin query handler
 func handleQueryBrowsing(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Querying with plugin...")
+	fmt.Println("Querying with browsing...")
 
 	input := r.URL.Query().Get("input")
 	if input == "" {
@@ -140,7 +140,7 @@ func handleQueryBrowsing(w http.ResponseWriter, r *http.Request) {
 
 // text query handler
 func handleQueryText(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Querying with plugin...")
+	fmt.Println("Querying with text...")
 
 	input := r.URL.Query().Get("input")
 	if input == "" {
