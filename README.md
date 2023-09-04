@@ -9,8 +9,9 @@ Provide database connection and ChatGPT plugin support with LangChain.
 Dependencies
 ------------
 
+LangChain https://python.langchain.com/docs/  
 GoLang https://go.dev/doc/  
-python 3 https://docs.python.org/3/  
+Python 3 https://docs.python.org/3/  
 
 
 Features
@@ -30,14 +31,55 @@ Execute
 Tested with Golang 1.21 and python3.11.2  
 
 * Docker  
-`docker compose up --build -d`
+`docker compose up --build -d`  
 
 * Manually  
 `go run server.go`  
 
 
+.env
+----
+
+`END_POINT`  
+The endpoint of the go server.  
+
+`OPENAI_API_KEY`  
+Get from OpenAI 
+
+`MODEL_NAME`  
+Refer OpenAI API document.  
+
+`TEMPERATURE`  
+Refer OpenAI API document.  
+
+`DB_USERNAME`  
+`DB_PASSWORD`  
+`DB_HOST`  
+`DB_PORT`  
+`DB_DATABASE`  
+DB connection settings
+
+`DEBUG`
+To debug the Python code from the API response.  
+
+`USE_VERBOSE`
+The LangChain response verbose details.  
+
+`DEFAULT_QUERY_ENGINE`  
+The default query engine can be `text`, `db`, or `browsing`.  
+
+
 Interface
 ---------
 
-GET /query_db?q=some_query_text  
-GET /query_plugin?q=some_query_text  
+GET `/query?q=query_text`  
+The Simple AI Chat will.  
+
+GET `/query_db?q=query_text`  
+For the database query.  
+
+GET `/query_browsing?q=query_text`  
+For the web browsing query.  
+
+GET `/query_text?q=query_text`  
+For the text file query.  
