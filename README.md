@@ -47,8 +47,6 @@ The endpoint of the go server.
 Get from OpenAI 
 
 `MODEL_NAME`  
-Refer OpenAI API document.  
-
 `TEMPERATURE`  
 Refer OpenAI API document.  
 
@@ -59,10 +57,10 @@ Refer OpenAI API document.
 `DB_DATABASE`  
 DB connection settings
 
-`DEBUG`
+`DEBUG`  
 To debug the Python code from the API response.  
 
-`USE_VERBOSE`
+`USE_VERBOSE`  
 The LangChain response verbose details.  
 
 `DEFAULT_QUERY_ENGINE`  
