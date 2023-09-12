@@ -2,6 +2,7 @@ import os
 import sys
 
 from dotenv import load_dotenv, find_dotenv
+
 from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
 from langchain.chat_models import ChatOpenAI
 
