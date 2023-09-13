@@ -2,6 +2,7 @@ import os
 import sys
 
 from dotenv import load_dotenv, find_dotenv
+
 from langchain.document_loaders import TextLoader
 from langchain.indexes import VectorstoreIndexCreator
 from langchain.llms import OpenAI
