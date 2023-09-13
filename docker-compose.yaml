@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     image: simple-ai-core
     container_name: simple_ai_core
+    restart: always
     volumes:
       - .:/app
     ports:
