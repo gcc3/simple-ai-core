@@ -70,14 +70,14 @@ The default query engine can be `text`, `db`, or `browsing`.
 Interface
 ---------
 
-GET `/query?q=query_text`  
+GET `/query?input=query_text`  
 The Simple AI Chat will.  
 
-GET `/query_db?q=query_text`  
+GET `/query_db?input=query_text`  
 For the database query.  
 
-GET `/query_browsing?q=query_text`  
+GET `/query_browsing?input=query_text`  
 For the web browsing query.  
 
-GET `/query_text?q=query_text`  
+GET `/query_text?input=query_text`  
 For the text file query.  
