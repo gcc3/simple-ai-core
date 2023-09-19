@@ -18,7 +18,7 @@ type Response struct {
 }
 
 func infoHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi, this is simple ai core server.")
+	fmt.Fprintf(w, os.Getenv("NODE"))
 }
 
 // default query handler
@@ -76,9 +76,9 @@ func main() {
 	// routes
 	r := mux.NewRouter()
 	r.HandleFunc("/", infoHandler).Methods("GET")
-	r.HandleFunc("/query", handleQuery).Methods("GET")
+	r.HandleFunc("/query", handleQuery).Methods("GET")  // query?input=...
 
-	endpoint := os.Getenv("END_POINT")
-	fmt.Println("Server started on " + endpoint + "\n")
-	http.ListenAndServe(endpoint, r)  // for windows use 127.0.0.1:8083
+	endpoint := os.Getenv("PORT")
+	fmt.Println("Server started on port " + endpoint + "\n")
+	http.ListenAndServe(":" + endpoint, r)  // for windows use 127.0.0.1:port
 }

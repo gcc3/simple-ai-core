@@ -5,10 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: simple-ai-core
-    container_name: simple_ai_core
+    image: simple-ai-node
+    container_name: ${NODE}
     restart: always
     volumes:
       - .:/app
     ports:
-      - "8083:8083"
+      - "${PORT}:${PORT}"
