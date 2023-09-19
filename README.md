@@ -1,9 +1,10 @@
 
-Simple AI Core
+Simple AI Node
 ==============
 
 
-Provide database connection and ChatGPT plugin support with LangChain.  
+Node of distributed AI links.  
+Provide database connection, ChatGPT plugin support. etc.  
 
 
 Dependencies
@@ -11,7 +12,6 @@ Dependencies
 
 LangChain https://python.langchain.com/docs/  
 GoLang https://go.dev/doc/  
-Python 3 https://docs.python.org/3/  
 
 
 Features
@@ -28,13 +28,19 @@ Refer: https://python.langchain.com/docs/integrations/tools/chatgpt_plugins
 Execute
 -------
 
-Tested with Golang 1.21 and python3.11.2  
+Tested with Golang 1.21 and Python 3.11.2  
 
 * Docker  
 `docker compose up --build -d`  
 
 * Manually  
 `go run server.go`  
+
+
+Interface
+---------
+
+GET `/query?input=query_text`  
 
 
 .env
@@ -65,19 +71,3 @@ The LangChain response verbose details.
 
 `DEFAULT_QUERY_ENGINE`  
 The default query engine can be `text`, `db`, or `browsing`.  
-
-
-Interface
----------
-
-GET `/query?input=query_text`  
-The Simple AI Chat will.  
-
-GET `/query_db?input=query_text`  
-For the database query.  
-
-GET `/query_browsing?input=query_text`  
-For the web browsing query.  
-
-GET `/query_text?input=query_text`  
-For the text file query.  
