@@ -22,7 +22,7 @@ func infoHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // default query handler
-func handleQuery(w http.ResponseWriter, r *http.Request) {
+func queryHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Querying engine: " + os.Getenv("DEFAULT_QUERY_ENGINE") + "...")  // text, db, browsing
 
 	input := r.URL.Query().Get("input")
@@ -76,7 +76,7 @@ func main() {
 	// routes
 	r := mux.NewRouter()
 	r.HandleFunc("/", infoHandler).Methods("GET")
-	r.HandleFunc("/query", handleQuery).Methods("GET")  // query?input=...
+	r.HandleFunc("/query", queryHandler).Methods("GET")  // query?input=...
 
 	port := os.Getenv("PORT")
 	fmt.Println("Server started on port " + port + "\n")
