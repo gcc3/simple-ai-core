@@ -78,7 +78,7 @@ func main() {
 	r.HandleFunc("/", infoHandler).Methods("GET")
 	r.HandleFunc("/query", handleQuery).Methods("GET")  // query?input=...
 
-	endpoint := os.Getenv("PORT")
-	fmt.Println("Server started on port " + endpoint + "\n")
-	http.ListenAndServe(":" + endpoint, r)  // for windows use 127.0.0.1:port
+	port := os.Getenv("PORT")
+	fmt.Println("Server started on port " + port + "\n")
+	http.ListenAndServe(":" + port, r)  // for windows use 127.0.0.1:port
 }
