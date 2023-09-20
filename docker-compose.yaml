@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: simple-ai-node
+    image: node-${ID}
     container_name: ${NODE}
     restart: always
     volumes:
