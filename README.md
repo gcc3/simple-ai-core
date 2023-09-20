@@ -46,8 +46,14 @@ GET `/query?input=query_text`
 .env
 ----
 
-`END_POINT`  
-The endpoint of the go server.  
+`PORT`  
+The port of the go server.  
+
+`NODE`  
+The node name.  
+
+`ID`  
+The node ID, use a number.  
 
 `OPENAI_API_KEY`  
 Get from OpenAI 
