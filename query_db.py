@@ -29,7 +29,11 @@ def process_query(query):
     PROMPT = """ 
     Given an input question, first create a syntactically correct MySQL query to run,  
     then look at the results of the query and return the answer.  
-    The question: {question}
+    The question: {question}  
+    Try different word while quering data.
+    Example:
+    User input word is 東京, try 東京 and 東京都 both or together.
+    Limit output for 20 items.
     """
 
     result = db_chain.run(PROMPT.format(question=query))
