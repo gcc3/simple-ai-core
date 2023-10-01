@@ -40,7 +40,7 @@ Supported Data Sources
 | Image (.jpg, .png, etc.)         | No        |
 | Whisper audio (.wav, .mp3, etc.) | No        |
 
-Please join the development.  
+Please [join](https://github.com/gcc3) the development.  
 
 
 Execute
