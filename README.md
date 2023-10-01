@@ -28,16 +28,19 @@ Refer: https://python.langchain.com/docs/integrations/tools/chatgpt_plugins
 Supported Data Sources
 ----------------------
 
-| Data Type                      | Supported |
-|--------------------------------|-----------|
-| Text (.txt)                    | Yes       |
-| PDF (.pdf)                     | No        |
-| EPUB (.epub)                   | No        |
-| CSV (.csv)                     | No        |
-| Unstructured                   | No        |
-| Web Browsing                   | No        |
-| Image (.jpg, .png, etc.)       | No        |
-| Whisper Audio (.wav, .mp3, etc.) | No      |
+| Data Type                        | Supported |
+|----------------------------------|-----------|
+| Relational database              | Yes       |
+| Text (.txt)                      | Yes       |
+| PDF (.pdf)                       | No        |
+| EPUB (.epub)                     | No        |
+| CSV (.csv)                       | No        |
+| Unstructured                     | No        |
+| Web browsing                     | No        |
+| Image (.jpg, .png, etc.)         | No        |
+| Whisper audio (.wav, .mp3, etc.) | No        |
+
+Please join the development.  
 
 
 Execute
