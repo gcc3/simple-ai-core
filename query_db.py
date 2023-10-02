@@ -7,6 +7,8 @@ from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
 from langchain.chat_models import ChatOpenAI
 
 def process_query(query):
+    
+    # load environment variables
     load_dotenv(find_dotenv())
     openai_api_key = os.environ["OPENAI_API_KEY"]
     model_name = os.environ["MODEL_NAME"]
@@ -16,15 +18,17 @@ def process_query(query):
     db_host = os.environ["DB_HOST"]
     db_port = os.environ["DB_PORT"]
     db_database = os.environ["DB_DATABASE"]
+    use_verbose = os.environ["USE_VERBOSE"] == "true"
 
+    # create database connection
     db_uri = f"mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{db_database}"
     db = SQLDatabase.from_uri(db_uri)
 
-    llm = ChatOpenAI(openai_api_key=openai_api_key, model_name=model_name, temperature=temperature)
+    # create LLM
+    model = ChatOpenAI(openai_api_key=openai_api_key, model_name=model_name, temperature=temperature)
 
-    # verbose=True for debugging
-    use_verbose = os.environ["USE_VERBOSE"] == "true"
-    db_chain = SQLDatabaseChain(llm=llm, database=db, verbose=use_verbose)
+    # create database chain
+    db_chain = SQLDatabaseChain(llm=model, database=db, verbose=use_verbose)
 
     PROMPT = """ 
     Given an input question, first create a syntactically correct MySQL query to run,  
@@ -38,6 +42,7 @@ def process_query(query):
 
     result = db_chain.run(PROMPT.format(question=query))
     return result
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
