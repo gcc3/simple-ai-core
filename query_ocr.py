@@ -3,12 +3,10 @@ import sys
 
 from dotenv import load_dotenv, find_dotenv
 
-from langchain.document_loaders import TextLoader
-from langchain.indexes import VectorstoreIndexCreator
-from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.document_loaders import AmazonTextractPDFLoader
+import boto3
 
 
 def process_query(query):
@@ -22,7 +20,7 @@ def process_query(query):
     model = ChatOpenAI(model_name=model_name, temperature=temperature, streaming=False)
 
     # load documents
-    loader = AmazonTextractPDFLoader("data.pdf")
+    loader = AmazonTextractPDFLoader("./data.jpeg", region_name="us-east-1")
     documents = loader.load()
 
     # create index from loader

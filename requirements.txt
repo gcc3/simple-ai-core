@@ -7,3 +7,6 @@ pinecone-client
 pymysql
 tiktoken
 boto3
+amazon-textract-caller
+pypdf
+Pillow

@@ -28,19 +28,19 @@ Refer: https://python.langchain.com/docs/integrations/tools/chatgpt_plugins
 Supported Data Sources
 ----------------------
 
-| Data Type                             | Engine | Supported |
-|---------------------------------------|--------|-----------|
-| Text (.txt)                           | text   | Yes       |
-| Relational database                   | db     | Yes       |
-| Plugin (.well-known/ai-plugin.js)     | plugin | Yes       |
-| PDF (.pdf)                            | pdf    | No        |
-| Amazon Textract PDF OCR (.pdf, .jpeg) | ocr    | No        |
-| EPUB (.epub)                          | epub   | No        |
-| CSV (.csv)                            | csv    | No        |
-| Unstructured                          | ust    | No        |
-| Web browsing                          | url    | No        |
-| Image (.jpg, .png, etc.)              | img    | No        |
-| Whisper audio (.wav, .mp3, etc.)      | audio  | No        |
+| Data Type                             | Engine | Supported   |
+|---------------------------------------|--------|-------------|
+| Text (.txt)                           | text   | Yes         |
+| Relational database                   | db     | No          |
+| Plugin (.well-known/ai-plugin.js)     | plugin | Yes         |
+| PDF (.pdf)                            | pdf    | No          |
+| Amazon Textract PDF OCR (.pdf, .jpeg) | ocr    | No          |
+| EPUB (.epub)                          | epub   | No          |
+| CSV (.csv)                            | csv    | No          |
+| Unstructured                          | ust    | No          |
+| Web browsing                          | url    | No          |
+| Image (.jpg, .png, etc.)              | img    | No          |
+| Whisper audio (.wav, .mp3, etc.)      | audio  | No          |
 
 Welcom to [join](https://github.com/gcc3) the development.  
 
