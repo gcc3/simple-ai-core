@@ -1,7 +1,7 @@
 
 import sys
 import os
-import query_db, query_text, query_browsing
+import query_db, query_text, query_plugin
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -12,8 +12,8 @@ if __name__ == '__main__':
             result = query_db.process_query(query)
         elif query_engine == 'text':
             result = query_text.process_query(query)
-        elif query_engine == 'browsing':
-            result = query_browsing.process_query(query)
+        elif query_engine == 'plugin':
+            result = query_plugin.process_query(query)
         else:
             result = 'Query engine not exists'
         print(result)
