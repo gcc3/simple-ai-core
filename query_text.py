@@ -11,9 +11,14 @@ from langchain.chat_models import ChatOpenAI
 # with LLM, with outside data
 # Note, if without LLM, the output is from custom data only
 def process_query(query):
+    
+    # load environment variables
     load_dotenv(find_dotenv())
     model_name = os.environ["MODEL_NAME"]
     temperature = os.environ["TEMPERATURE"]
+    custom_data_only = os.environ["CUSTOM_DATA_ONLY"] == 'true'
+    
+    # create LLM
     model = ChatOpenAI(model_name=model_name, temperature=temperature, streaming=False)
 
     # load documents
@@ -26,7 +31,11 @@ def process_query(query):
     {question}
     """
 
-    result = index.query(PROMPT.format(question=query), llm=model)
+    if custom_data_only:
+        result = index.query(PROMPT.format(question=query))
+    else:
+        result = index.query(PROMPT.format(question=query), llm=model)
+        
     return result
 
 if __name__ == '__main__':

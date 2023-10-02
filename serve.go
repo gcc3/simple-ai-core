@@ -32,10 +32,10 @@ func queryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("Input: ", input, "\n")
-	cmd := exec.Command("python", "query.py", input)
+	cmd := exec.Command(os.Getenv("PYTHON_PATH"), "query.py", input)
 	cmd.Env = append(os.Environ(), "PYTHONIOENCODING=utf-8")  // avoid encoding error
 
-	// debug python
+	// Debug python
 	if (os.Getenv("DEBUG") == "true") {
 		var stderr bytes.Buffer
 		cmd.Stderr = &stderr
