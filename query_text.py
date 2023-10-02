@@ -8,8 +8,7 @@ from langchain.indexes import VectorstoreIndexCreator
 from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 
-# with LLM, with outside data
-# Note, if without LLM, the output is from custom data only
+
 def process_query(query):
     
     # load environment variables
@@ -31,6 +30,8 @@ def process_query(query):
     {question}
     """
 
+    # with LLM, with outside data
+    # Note, if without LLM, the output is from custom data only
     if custom_data_only:
         result = index.query(PROMPT.format(question=query))
     else:

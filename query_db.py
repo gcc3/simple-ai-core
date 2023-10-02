@@ -6,6 +6,7 @@ from dotenv import load_dotenv, find_dotenv
 from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
 from langchain.chat_models import ChatOpenAI
 
+
 def process_query(query):
     
     # load environment variables

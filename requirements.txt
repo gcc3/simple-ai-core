@@ -6,3 +6,4 @@ python-dotenv
 pinecone-client
 pymysql
 tiktoken
+boto3

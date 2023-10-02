@@ -1,0 +1,1 @@
+https://voxscript.awt.icu/.well-known/ai-plugin.json

@@ -1,7 +1,7 @@
 
 import sys
 import os
-import query_db, query_text, query_plugin
+import query_db, query_text, query_plugin, query_ocr
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -14,6 +14,8 @@ if __name__ == '__main__':
             result = query_text.process_query(query)
         elif query_engine == 'plugin':
             result = query_plugin.process_query(query)
+        elif query_engine == 'ocr':
+            result = query_ocr.process_query(query)
         else:
             result = 'Query engine not exists'
         print(result)

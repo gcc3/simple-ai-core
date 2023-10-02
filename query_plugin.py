@@ -8,6 +8,7 @@ from langchain.agents import load_tools, initialize_agent
 from langchain.agents import AgentType
 from langchain.tools import AIPluginTool
 
+
 def process_query(query):
     
     # load environment variables
@@ -16,9 +17,10 @@ def process_query(query):
     model_name = os.environ["MODEL_NAME"]
     temperature = os.environ["TEMPERATURE"]
     use_verbose = os.environ["USE_VERBOSE"] == "true"
+    plugin_url = os.environ["PLUGIN_URL"]
 
     # Use VoxScript as browsing engine
-    tool = AIPluginTool.from_plugin_url("https://voxscript.awt.icu/.well-known/ai-plugin.json")
+    tool = AIPluginTool.from_plugin_url(plugin_url)
     tools = load_tools(["requests_all"])
     tools += [tool]
     
