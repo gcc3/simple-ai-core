@@ -1,13 +1,26 @@
 version: '3'
 
+networks:
+  simple_ai_network:
+    name: simple_ai_network
+    driver: bridge
+
 services:
-  simple-ai-core:
+  simple-ai-node:
     build:
       context: .
       dockerfile: Dockerfile
-    image: simple-ai-core
-    container_name: simple_ai_core
+    image: node-${ID}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.30'
+          memory: 256M
+    container_name: ${NODE}
+    restart: always
     volumes:
       - .:/app
     ports:
-      - "8080:8080"
+      - "${PORT}:${PORT}"
+    networks:
+      - simple_ai_network

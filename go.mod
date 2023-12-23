@@ -1,4 +1,4 @@
-module simple-ai-core
+module simple-ai-node
 
 go 1.21.0
 

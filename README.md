@@ -1,9 +1,10 @@
 
-Simple AI Core
+Simple AI Node
 ==============
 
 
-Provide database connection and ChatGPT plugin support with LangChain.  
+Node of distributed AI links.  
+Provide database connection, ChatGPT plugin support. etc.  
 
 
 Dependencies
@@ -11,7 +12,6 @@ Dependencies
 
 LangChain https://python.langchain.com/docs/  
 GoLang https://go.dev/doc/  
-Python 3 https://docs.python.org/3/  
 
 
 Features
@@ -25,10 +25,30 @@ Query as same as ChatGPT plugins.
 Refer: https://python.langchain.com/docs/integrations/tools/chatgpt_plugins  
 
 
+Supported Data Sources
+----------------------
+
+| Data Type                             | Engine | Supported   |
+|---------------------------------------|--------|-------------|
+| Text (.txt)                           | text   | Yes         |
+| Relational database                   | db     | No          |
+| Plugin (.well-known/ai-plugin.js)     | plugin | Yes         |
+| PDF (.pdf)                            | pdf    | No          |
+| Amazon Textract PDF OCR (.pdf, .jpeg) | ocr    | No          |
+| EPUB (.epub)                          | epub   | No          |
+| CSV (.csv)                            | csv    | No          |
+| Unstructured                          | ust    | No          |
+| Web browsing                          | url    | No          |
+| Image (.jpg, .png, etc.)              | img    | No          |
+| Whisper audio (.wav, .mp3, etc.)      | audio  | No          |
+
+Welcom to [join](https://github.com/gcc3) the development.  
+
+
 Execute
 -------
 
-Tested with Golang 1.21 and python3.11.2  
+Tested with Golang 1.21 and Python 3.11.2  
 
 * Docker  
 `docker compose up --build -d`  
@@ -37,49 +57,67 @@ Tested with Golang 1.21 and python3.11.2
 `go run server.go`  
 
 
-.env
-----
-
-`END_POINT`  
-The endpoint of the go server.  
-
-`OPENAI_API_KEY`  
-Get from OpenAI 
-
-`MODEL_NAME`  
-Refer OpenAI API document.  
-
-`TEMPERATURE`  
-Refer OpenAI API document.  
-
-`DB_USERNAME`  
-`DB_PASSWORD`  
-`DB_HOST`  
-`DB_PORT`  
-`DB_DATABASE`  
-DB connection settings
-
-`DEBUG`
-To debug the Python code from the API response.  
-
-`USE_VERBOSE`
-The LangChain response verbose details.  
-
-`DEFAULT_QUERY_ENGINE`  
-The default query engine can be `text`, `db`, or `browsing`.  
-
-
 Interface
 ---------
 
-GET `/query?q=query_text`  
-The Simple AI Chat will.  
+GET `/query?input=query_text`  
 
-GET `/query_db?q=query_text`  
-For the database query.  
 
-GET `/query_browsing?q=query_text`  
-For the web browsing query.  
+Response
+--------
 
-GET `/query_text?q=query_text`  
-For the text file query.  
+```json
+{
+    "result": "Sample response text."
+}
+```
+
+
+.env
+----
+
+PORT  
+The port of the go server.  
+
+PYTHON_PATH  
+Specify the python executable path.  
+Get from `which python`.  
+
+NODE  
+The node name.  
+
+ID  
+The node ID, use a number, usual I use unix time.  
+
+OPENAI_API_KEY  
+Get from OpenAI 
+
+MODEL_NAME  
+TEMPERATURE  
+Refer OpenAI API document.  
+
+DEFAULT_QUERY_ENGINE  
+Engine name refer "Supported Data Sources".  
+
+CUSTOM_DATA_ONLY  
+Custom data only for text query.  
+Outside the custom data AI will say "I don't know"  
+
+DEBUG  
+To debug the Python code from the API response.  
+
+USE_VERBOSE  
+The LangChain response verbose details.  
+
+DB_USERNAME  
+DB_PASSWORD  
+DB_HOST  
+DB_PORT  
+DB_DATABASE  
+For relational database node.  
+DB connection settings.
+
+PLUGIN_URL  
+For plugin node.
+.well-known/ai-plugin.json file URL.  
+Refer OpenAI plagin document.  
