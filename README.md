@@ -52,7 +52,7 @@ Install python dependencies.
 `pip install -r requirements.txt`
 
 If use query engine `text`:  
-Create data.txt include the data.  
+Create `data.txt` include the data.  
 
 
 Execute
