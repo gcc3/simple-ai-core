@@ -54,7 +54,7 @@ Tested with Golang 1.21 and Python 3.11.2
 `docker compose up --build -d`  
 
 * Manually  
-`go run server.go`  
+`go run serve.go`  
 
 
 Interface
