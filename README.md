@@ -45,6 +45,16 @@ Supported Data Sources
 Welcom to [join](https://github.com/gcc3) the development.  
 
 
+Setup
+-----
+
+Install python dependencies.  
+`pip install -r requirements.txt`
+
+If use query engine `text`:  
+Create data.txt include the data.  
+
+
 Execute
 -------
 
