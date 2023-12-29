@@ -12,13 +12,13 @@ import (
 	"github.com/gorilla/mux"
 )
 
+func infoHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, os.Getenv("NODE"))
+}
+
 type Response struct {
 	Message string `json:"result"`
 	Error   string `json:"error,omitempty"`
-}
-
-func infoHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, os.Getenv("NODE"))
 }
 
 // default query handler
