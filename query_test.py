@@ -10,9 +10,17 @@ def process_query(query):
     # return "test"
 
     # json result
+    # result = {
+    #     "result": "test"
+    # }
+    # return json.dumps(result)
+
+    # json result
     result = {
-        "text": "test",
-        "image": "image_url",
+        "result": {
+            "text": "test",
+            "image": "image_url",
+        }
     }
     return json.dumps(result)
 
