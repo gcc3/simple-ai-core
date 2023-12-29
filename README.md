@@ -83,6 +83,17 @@ Response
 }
 ```
 
+Or
+
+```json
+{
+    "result": {
+        "text": "Sample response text.",
+        "image": "some_imeage_url",
+    }
+}
+```
+
 
 .env
 ----
