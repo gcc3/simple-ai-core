@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 
 from dotenv import load_dotenv, find_dotenv
 
@@ -36,8 +37,10 @@ def process_query(query):
         result = index.query(PROMPT.format(question=query))
     else:
         result = index.query(PROMPT.format(question=query), llm=model)
-        
-    return result
+    
+    return json.dumps({
+        "result": result
+    })
 
 
 if __name__ == '__main__':

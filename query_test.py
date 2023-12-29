@@ -5,24 +5,19 @@ import json
 from dotenv import load_dotenv, find_dotenv
 
 def process_query(query):
+    
+    # text
+    return json.dumps({
+        "result": "test"
+    })
 
-    # text result 
-    # return "test"
-
-    # json result
-    # result = {
-    #     "result": "test"
-    # }
-    # return json.dumps(result)
-
-    # json result
-    result = {
+    # text and image
+    return json.dumps({
         "result": {
             "text": "test",
-            "image": "image_url",
+            "image": "https://simpleaibucket.s3.amazonaws.com/1703837090420_0_1.png",
         }
-    }
-    return json.dumps(result)
+    })
 
 
 if __name__ == '__main__':
