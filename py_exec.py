@@ -1,10 +1,10 @@
 
 import sys
 import os
-# import query_db
+import query_test
+import query_db
 import query_text
 import query_plugin
-import query_ocr
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
@@ -13,8 +13,11 @@ if __name__ == '__main__':
         
         result = 'Query engine not exists'
         
-        # if query_engine == 'db':
-        #     result = query_db.process_query(query)
+        if query_engine == 'test':
+            result = query_test.process_query(query)
+        
+        if query_engine == 'db':
+            result = query_db.process_query(query)
         
         if query_engine == 'text':
             result = query_text.process_query(query)
@@ -22,9 +25,6 @@ if __name__ == '__main__':
         if query_engine == 'plugin':
             result = query_plugin.process_query(query)
         
-        if query_engine == 'ocr':
-            result = query_ocr.process_query(query)
-            
         print(result)
     else:
         print('No input')

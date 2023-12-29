@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 
 from dotenv import load_dotenv, find_dotenv
 
@@ -42,7 +43,9 @@ def process_query(query):
     """
 
     result = db_chain.run(PROMPT.format(question=query))
-    return result
+    return json.dumps({
+        "result": result
+    })
 
 
 if __name__ == '__main__':
