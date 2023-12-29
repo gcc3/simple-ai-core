@@ -1,6 +1,7 @@
 
 import sys
 import os
+import query_test
 import query_db
 import query_text
 import query_plugin
@@ -11,6 +12,9 @@ if __name__ == '__main__':
         query_engine = os.environ["DEFAULT_QUERY_ENGINE"]
         
         result = 'Query engine not exists'
+        
+        if query_engine == 'test':
+            result = query_test.process_query(query)
         
         if query_engine == 'db':
             result = query_db.process_query(query)
