@@ -1,15 +1,20 @@
 import os
 import sys
+import json
 
 from dotenv import load_dotenv, find_dotenv
 
 def process_query(query):
-    
+
+    # text result 
     # return "test"
-    return {
+
+    # json result
+    result = {
         "text": "test",
         "image": "image_url",
     }
+    return json.dumps(result)
 
 
 if __name__ == '__main__':

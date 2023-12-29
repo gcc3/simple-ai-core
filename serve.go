@@ -49,15 +49,48 @@ func generateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	output, err := cmd.Output()
-	response := Response{}
 	if err != nil {
 		http.Error(w, "Error: " + err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	fmt.Println("Output: ", string(output))
-	response.Message = string(output)
-	sendJSONResponse(w, response, http.StatusOK)
+	fmt.Println("Raw Output: ", string(output))
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	if _, err := w.Write([]byte(output)); err != nil {
+        // Handle the error if there's one
+        http.Error(w, "Internal Server Error while writing response", http.StatusInternalServerError)
+    }
+	
+	// response := Response{}
+	// if err := json.Unmarshal(output, &response); err != nil {
+	// 	http.Error(w, "Error unmarshaling output: "+err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+
+	// resultString := strings.TrimSpace(response.Message)
+
+	// var result interface{}
+	// if err := json.Unmarshal([]byte(resultString), &result); err == nil {
+	// 	fmt.Println("Format: JSON")
+
+	// 	// If the inner JSON is successfully parsed, marshal it back to a JSON string
+	// 	resultJSON, err := json.Marshal(result)
+	// 	if err != nil {
+	// 		http.Error(w, "Error marshaling result: "+err.Error(), http.StatusInternalServerError)
+	// 		return
+	// 	}
+	// 	response.Message = string(resultJSON)
+	// } else {
+	// 	fmt.Println("Format: text")
+
+	// 	// If the inner JSON is not successfully parsed, just use the original string
+	// 	response.Message = "\"" + response.Message + "\""
+	// }
+
+	// sendJSONResponse(w, response, http.StatusOK)
 }
 
 func sendJSONResponse(w http.ResponseWriter, resp Response, statusCode int) {
