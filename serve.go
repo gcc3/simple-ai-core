@@ -76,7 +76,7 @@ func main() {
 	// routes
 	r := mux.NewRouter()
 	r.HandleFunc("/", infoHandler).Methods("GET")
-	r.HandleFunc("/generate", generateHandler).Methods("GET")  // query?input=...
+	r.HandleFunc("/generate", generateHandler).Methods("GET")
 
 	port := os.Getenv("PORT")
 	fmt.Println("Server started on port " + port + "\n")
