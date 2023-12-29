@@ -3,24 +3,27 @@ Simple AI Node
 ==============
 
 
-Node of distributed AI links.  
-Provide database connection, ChatGPT plugin support. etc.  
+Example node of distributed AI links (Node AI).  
+Refer [simple-ai-chat](https://github.com/gcc3/simple-ai-chat).  
 
 
 Dependencies
 ------------
 
-LangChain https://python.langchain.com/docs/  
 GoLang https://go.dev/doc/  
+LangChain https://python.langchain.com/docs/  
 
 
 Features
 --------
 
-1. For database query  
+1. Text query  
+Query for `data.txt` file.  
+
+2. Database query  
 LangChain will generate SQL query from text and magically query the data.  
 
-2. For plugin query  
+3. Plugin query  
 Query as same as ChatGPT plugins.  
 Refer: https://python.langchain.com/docs/integrations/tools/chatgpt_plugins  
 
@@ -31,7 +34,7 @@ Supported Data Sources
 | Data Type                             | Engine | Supported   |
 |---------------------------------------|--------|-------------|
 | Text (.txt)                           | text   | Yes         |
-| Relational database                   | db     | No          |
+| Relational database                   | db     | Yes         |
 | Plugin (.well-known/ai-plugin.js)     | plugin | Yes         |
 | PDF (.pdf)                            | pdf    | No          |
 | Amazon Textract PDF OCR (.pdf, .jpeg) | ocr    | No          |
@@ -41,8 +44,6 @@ Supported Data Sources
 | Web browsing                          | url    | No          |
 | Image (.jpg, .png, etc.)              | img    | No          |
 | Whisper audio (.wav, .mp3, etc.)      | audio  | No          |
-
-Welcom to [join](https://github.com/gcc3) the development.  
 
 
 Setup
@@ -67,10 +68,10 @@ Tested with Golang 1.21 and Python 3.11.2
 `go run serve.go`  
 
 
-Interface
----------
+API
+---
 
-GET `/query?input=query_text`  
+GET `/generate?input=input_text`  
 
 
 Response
