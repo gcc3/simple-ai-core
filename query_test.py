@@ -7,14 +7,14 @@ from dotenv import load_dotenv, find_dotenv
 def process_query(query):
     
     # text
-    return json.dumps({
-        "result": "test"
-    })
+    # return json.dumps({
+    #     "result": "test"
+    # })
 
     # text and image
     return json.dumps({
         "result": {
-            "text": "test",
+            "text": "This is a generated image.",
             "image": "https://simpleaibucket.s3.amazonaws.com/1703837090420_0_1.png",
         }
     })
