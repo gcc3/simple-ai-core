@@ -15,7 +15,9 @@ def process_query(query):
     return json.dumps({
         "result": {
             "text": "This is a generated image.",
-            "image": "https://simpleaibucket.s3.amazonaws.com/1703837090420_0_1.png",
+            "images": [
+                "https://simpleaibucket.s3.amazonaws.com/1703837090420_0_1.png"
+            ],
         }
     })
 
