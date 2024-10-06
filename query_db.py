@@ -4,8 +4,9 @@ import json
 
 from dotenv import load_dotenv, find_dotenv
 
-from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import OpenAI, ChatOpenAI
+from langchain import SQLDatabaseChain
+from langchain_community.utilities.sql_database import SQLDatabase
 
 
 def process_query(query):

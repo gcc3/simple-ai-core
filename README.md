@@ -28,32 +28,16 @@ Query as same as ChatGPT plugins.
 Refer: https://python.langchain.com/docs/integrations/tools/chatgpt_plugins  
 
 
-Supported Data Sources
-----------------------
-
-| Data Type                             | Engine | Supported   |
-|---------------------------------------|--------|-------------|
-| Text (.txt)                           | text   | Yes         |
-| Relational database                   | db     | Yes         |
-| Plugin (.well-known/ai-plugin.js)     | plugin | Yes         |
-| PDF (.pdf)                            | pdf    | No          |
-| Amazon Textract PDF OCR (.pdf, .jpeg) | ocr    | No          |
-| EPUB (.epub)                          | epub   | No          |
-| CSV (.csv)                            | csv    | No          |
-| Unstructured                          | ust    | No          |
-| Web browsing                          | url    | No          |
-| Image (.jpg, .png, etc.)              | img    | No          |
-| Whisper audio (.wav, .mp3, etc.)      | audio  | No          |
-
-
 Setup
 -----
 
 Install python dependencies.  
 `pip install -r requirements.txt`
 
-If use query engine `text`:  
-Create `data.txt` include the data.  
+Sometimes need to update the packages:  
+`pip install --upgrade openai`  
+`pip install --upgrade langchain`   
+`pip install --upgrade -r requirements.txt`  
 
 
 Execute
@@ -95,6 +79,30 @@ Or
 ```
 
 
+Query Engines
+-------------
+
+1. text  
+Simple text query base on langchain.  
+If use query engine `text`, Create `data.txt` to include the data.  
+
+* Supported Data Sources  
+
+| Data Type                             | Engine | Supported   |
+|---------------------------------------|--------|-------------|
+| Text (.txt)                           | text   | Yes         |
+| Relational database                   | db     | Yes         |
+| Plugin (.well-known/ai-plugin.js)     | plugin | Yes         |
+| PDF (.pdf)                            | pdf    | No          |
+| Amazon Textract PDF OCR (.pdf, .jpeg) | ocr    | No          |
+| EPUB (.epub)                          | epub   | No          |
+| CSV (.csv)                            | csv    | No          |
+| Unstructured                          | ust    | No          |
+| Web browsing                          | url    | No          |
+| Image (.jpg, .png, etc.)              | img    | No          |
+| Whisper audio (.wav, .mp3, etc.)      | audio  | No          |
+
+
 .env
 ----
 
@@ -118,7 +126,7 @@ MODEL_NAME
 TEMPERATURE  
 Refer OpenAI API document.  
 
-DEFAULT_QUERY_ENGINE  
+QUERY_ENGINE  
 Engine name refer "Supported Data Sources".  
 
 CUSTOM_DATA_ONLY  

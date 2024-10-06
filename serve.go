@@ -22,7 +22,7 @@ type Response struct {
 
 // Default query handler
 func generateHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Querying engine: " + os.Getenv("DEFAULT_QUERY_ENGINE") + "...")  // text, db, browsing
+	fmt.Println("Query engine: " + os.Getenv("QUERY_ENGINE"))  // text, db, browsing
 
 	// Input
 	input := r.URL.Query().Get("input")
