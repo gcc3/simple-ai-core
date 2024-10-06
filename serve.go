@@ -11,6 +11,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Info handler
 func infoHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, os.Getenv("NODE"))
 }
@@ -21,11 +22,12 @@ type Response struct {
 }
 
 // Default query handler
+// Example: { "user_input": "What is the capital of France?" }
 func generateHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Query engine: ", os.Getenv("QUERY_ENGINE"))  // text, db, browsing
 
-	// Input
-	input := r.URL.Query().Get("input")
+	// Input (user_input)
+	input := r.URL.Query().Get("user_input")
 	if input == "" {
 		http.Error(w, "Input query parameter is required", http.StatusBadRequest)
 		return
