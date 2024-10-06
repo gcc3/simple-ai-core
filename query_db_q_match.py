@@ -79,7 +79,7 @@ def get_answer(question_id):
         results = cursor.fetchall()
         
         # Convert the result to a string
-        question_and_answer = "Q: " + results[0][0] + " A: " + results[0][1] if results else ''
+        question_and_answer = "Q: " + results[0][0] + "\n\n" + "A: " + results[0][1] if results else ''
         return question_and_answer
 
 
