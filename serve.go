@@ -57,7 +57,7 @@ func generateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("Output: ", string(output))
 
-	// write response
+	// Write response
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	if _, err := w.Write([]byte(output)); err != nil {
