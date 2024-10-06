@@ -139,11 +139,11 @@ To debug the Python code from the API response.
 USE_VERBOSE  
 The LangChain response verbose details.  
 
-DB_USERNAME  
-DB_PASSWORD  
-DB_HOST  
-DB_PORT  
-DB_DATABASE  
+MYSQL_DB_USERNAME  
+MYSQL_DB_PASSWORD  
+MYSQL_DB_HOST  
+MYSQL_DB_PORT  
+MYSQL_DB_DATABASE  
 For relational database node.  
 DB connection settings.
 

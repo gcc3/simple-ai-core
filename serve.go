@@ -22,7 +22,7 @@ type Response struct {
 
 // Default query handler
 func generateHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Query engine: " + os.Getenv("QUERY_ENGINE"))  // text, db, browsing
+	fmt.Println("Query engine: ", os.Getenv("QUERY_ENGINE"))  // text, db, browsing
 
 	// Input
 	input := r.URL.Query().Get("input")
@@ -30,7 +30,7 @@ func generateHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Input query parameter is required", http.StatusBadRequest)
 		return
 	}
-	fmt.Println("Input: ", input, "\n")
+	fmt.Println("Input:", input, "\n")
 
 	// Run python script
 	cmd := exec.Command(os.Getenv("PYTHON_PATH"), "py_exec.py", input)

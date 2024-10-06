@@ -16,15 +16,15 @@ def process_query(query):
     openai_api_key = os.environ["OPENAI_API_KEY"]
     model_name = os.environ["MODEL_NAME"]
     temperature = os.environ["TEMPERATURE"]
-    db_username = os.environ["DB_USERNAME"]
-    db_password = os.environ["DB_PASSWORD"]
-    db_host = os.environ["DB_HOST"]
-    db_port = os.environ["DB_PORT"]
-    db_database = os.environ["DB_DATABASE"]
+    MYSQL_DB_USERNAME = os.environ["MYSQL_DB_USERNAME"]
+    MYSQL_DB_PASSWORD = os.environ["MYSQL_DB_PASSWORD"]
+    MYSQL_DB_HOST = os.environ["MYSQL_DB_HOST"]
+    MYSQL_DB_PORT = os.environ["MYSQL_DB_PORT"]
+    MYSQL_DB_DATABASE = os.environ["MYSQL_DB_DATABASE"]
     use_verbose = os.environ["USE_VERBOSE"] == "true"
 
     # create database connection
-    db_uri = f"mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{db_database}"
+    db_uri = f"mysql+pymysql://{MYSQL_DB_USERNAME}:{MYSQL_DB_PASSWORD}@{MYSQL_DB_HOST}:{MYSQL_DB_PORT}/{MYSQL_DB_DATABASE}"
     db = SQLDatabase.from_uri(db_uri)
 
     # create LLM
