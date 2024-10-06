@@ -72,28 +72,28 @@ def find_most_similar_question_id(query, questions):
 def get_answer(question_id):
     with connection.cursor() as cursor:
         # Define the SQL query
-        sql_query = f"SELECT answer FROM questions_and_answers WHERE id = {question_id}"
+        sql_query = f"SELECT question, answer FROM questions_and_answers WHERE id = {question_id}"
         
         # Execute the query
         cursor.execute(sql_query)
         results = cursor.fetchall()
         
         # Convert the result to a string
-        answer = results[0][0] if results else ''
-        return answer
+        question_and_answer = "Q: " + results[0][0] + " A: " + results[0][1] if results else ''
+        return question_and_answer
 
 
 def process_query(query_input):
     # Get questions from the database
     questions = get_question_list()
-    answer = ''
     
     # Use generative AI to match the question
     matched_question_id = find_most_similar_question_id(query_input, questions)
     
     # Get the answer for the matched question
+    question_and_answer = ''
     if matched_question_id > 0:
-        answer = get_answer(matched_question_id)
+        question_and_answer = get_answer(matched_question_id)
     return json.dumps({
-        "result": answer
+        "result": question_and_answer
     })
