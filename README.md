@@ -32,7 +32,7 @@ Setup
 -----
 
 Install python dependencies.  
-`pip install -r requirements.txt`
+`pip install -r requirements.txt`  
 
 Sometimes need to update the packages:  
 `pip install --upgrade openai`  
@@ -50,6 +50,9 @@ Tested with Golang 1.21 and Python 3.11.2
 
 * Manually  
 `go run serve.go`  
+
+* Serve with PM2
+`pm2 start go --name simple-ai-node --interpreter none -- run serve.go`
 
 
 API
