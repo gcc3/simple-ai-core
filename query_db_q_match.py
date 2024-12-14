@@ -38,10 +38,10 @@ def find_most_similar_question_id(query, questions):
     prompt = f"Find the most similar question to the following query: '{query}'.\n\nQuestions:\n"
     
     for idx, (question_id, question) in enumerate(questions):
-        prompt += f"{idx+1}. {question}\n"
+        prompt += f"{idx+1} {question}\n"
 
-    prompt += "\nRespond with the number of the most similar question, with JSON format." \
-            + "Format: {'question_id': <question_id>, 'question': <question>}\n" \
+    prompt += f"\n\n\nWith number match my question: {query}\n\n" \
+            + "Response with JSON format: {'question_id': <question_id>, 'question': <question>}\n" \
             + "if there is no similar question, respond with a questions id of '0'."
 
     # Use OpenAI's completion API to get the response
